@@ -15,7 +15,7 @@ Es posible distinguir 3 tipos de geometrías en el modelo vectorial para el aná
 ![](https://volaya.github.io/libro-sig/img/Primitivas_vectoriales.png){width='100%'}
 
 ## Importación de datos puntuales
-Existe un gran número de formatos en que se puede importar datos, un ejemplo de estos es el ya conocido **csv** (*Comma Separated Values*), o el versátil **xlsx** de Excel, a continuación se importarán datos desde los formatos csv, xlsx, shp y kml. Para estos ejemplos utilizaremos los materiales encontrados en el repositorio <https://djwillichile.github.io/MODULO_05/DATA>
+Existe un gran número de formatos en que se puede importar datos, un ejemplo de estos es el ya conocido **csv** (*Comma Separated Values*), o el versátil **xlsx** de Excel, a continuación se importarán datos desde los formatos csv, xlsx, shp y kml. Para estos ejemplos utilizaremos los materiales encontrados en el repositorio <https://github.com/djwillichile/MODULO_05/tree/gh-pages/DATA> al cual también se puede acceder mediante la siguiente url <https://djwillichile.github.io/MODULO_05/DATA>
 
 ### importar datos desde csv
 Este método es uno de los más sencillos de implementar y a la vez, el que permite más formas distintas de realizarlo. utilizaremos el archivo *bradypus.csv*

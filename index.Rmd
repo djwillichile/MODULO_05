@@ -175,6 +175,22 @@ plot(wrld_simpl,add=T)
   Cómo habrán podido notar, los 3 métodos permiten obtener resultados muy parecidos utilizando a su vez una sintaxis simple que no requiere mayor análisis, es decir, se requiere la base de datos con coordenadas y el sistema de referencia, la principal diferencia radica en que la función `SpatialPoints()` devuelve solo las coordenadas espaciales georreferenciadas mientras que las otras 2 georeferencian todo el contenido de la base de datos.
   
 ## Importar capas vectoriales
-Ya vimos como importar información y crear capas vectoriales a partit de bases de datos puntuales, pero en el mundo del análisis espacial se manejan distintos formatos y archivos con los que van a toparse de vez en cuando, algunos de estos formatos con los ya mencionados *shp* y *kml*, por suerte existen paquetes para importar y manipular dichos archivos, una de las funciones más utilizadas para cargar estos archivos `readOGR()` del paquete `rgdal`
+Ya aprendimos como importar información y crear capas vectoriales a partit de bases de datos puntuales, pero en el mundo del análisis espacial se manejan distintos formatos y archivos con los que van a toparse de vez en cuando, algunos de estos formatos con los ya mencionados *shp* y *kml*, por suerte existen paquetes para importar y manipular dichos archivos, una de las funciones más utilizadas para cargar estos archivos `readOGR()` del paquete `rgdal`
 
-Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.
+```{r , include=FALSE}
+dev.off(dev.list())
+```
+
+```{r, fig.align='center'}
+# Asignamos al objeto "fileStrig" ruta completa del archivo kml
+fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.kml"
+
+# importamos la capa mediante la función "readOGR"
+bradypus <- readOGR(fileStrig,layer = "bradypus")
+bradypus
+
+# graficamos
+par(mar = c(2, 2, 0.1, 0.1))
+plot(bradypus.sp2,axes=T,col="red")
+plot(wrld_simpl,add=T)
+```

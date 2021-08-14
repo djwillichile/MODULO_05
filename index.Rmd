@@ -1,12 +1,14 @@
 ---
-title: "ImportaciÛn de informaciÛn espacial"
+title: "Importaci√≥n de informaci√≥n espacial"
 author: "Guillermo S. Fuentes Jaque"
 date: "August 12, 2021"
 output:
   html_document:
+    highlight: haddock
     toc: true
-    toc_float: true
-    highlight: zenburn
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
 
 <style>
@@ -21,15 +23,15 @@ Sys.setenv(LANG = "es")
 
 # Datos espaciales
 
-Es posible distinguir 3 tipos de geometrÌas en el modelo vectorial para el an·lisis espacial, estos corresponden a **puntos**, **lÌneas** y **polÌgonos**, los cuales hacen referencia a elementos con caracterÌsticas particulares y su respectiva representaciÛn en el espacio, los polÌgonos representan elementos unidimensionales como por ejemplo superficies, las lÌneas representan elementos unidimensionales como por ejemplo calles o rÌos, mientras que los puntos representar·n la posiciÛn de alg˙n objeto en el espacio, por ejemplo, un individuo, el centro de una ciudad e incluso la presencia de alg˙n evento.
+Es posible distinguir 3 tipos de geometr√≠as en el modelo vectorial para el an√°lisis espacial, estos corresponden a **puntos**, **l√≠neas** y **pol√≠gonos**, los cuales hacen referencia a elementos con caracter√≠sticas particulares y su respectiva representaci√≥n en el espacio, los pol√≠gonos representan elementos unidimensionales como por ejemplo superficies, las l√≠neas representan elementos unidimensionales como por ejemplo calles o r√≠os, mientras que los puntos representar√°n la posici√≥n de alg√∫n objeto en el espacio, por ejemplo, un individuo, el centro de una ciudad e incluso la presencia de alg√∫n evento.
 
 ![](https://volaya.github.io/libro-sig/img/Primitivas_vectoriales.png){width='100%'}
 
-## ImportaciÛn de datos puntuales
-Existe un gran n˙mero de formatos en que se puede importar datos, un ejemplo de estos es el ya conocido **csv** (*Comma Separated Values*), o el vers·til **xlsx** de Excel, a continuaciÛn se importar·n datos desde los formatos csv, xlsx, shp y kml. Para estos ejemplos utilizaremos los materiales encontrados en el repositorio <https://github.com/djwillichile/MODULO_05/tree/gh-pages/DATA>, tambiÈn pueden acceder a todo el material utilizado para esta actividad mediante el siguiente **[enlace](https://djwillichile.github.io/MODULO_05/DATA/Materiales.zip)**.
+## Importaci√≥n de datos puntuales
+Existe un gran n√∫mero de formatos en que se puede importar datos, un ejemplo de estos es el ya conocido **csv** (*Comma Separated Values*), o el vers√°til **xlsx** de Excel, a continuaci√≥n se importar√°n datos desde los formatos csv, xlsx, shp y kml. Para estos ejemplos utilizaremos los materiales encontrados en el repositorio <https://github.com/djwillichile/MODULO_05/tree/gh-pages/DATA>, tambi√©n pueden acceder a todo el material utilizado para esta actividad mediante el siguiente **[enlace](https://djwillichile.github.io/MODULO_05/DATA/Materiales.zip)**.
 
 ## importar datos desde csv
-Este mÈtodo es uno de los m·s sencillos de implementar y a la vez, el que permite m·s formas distintas de realizarlo. utilizaremos el archivo *bradypus.csv*
+Este m√©todo es uno de los m√°s sencillos de implementar y a la vez, el que permite m√°s formas distintas de realizarlo. utilizaremos el archivo *bradypus.csv*
 
 ```{r, include = T,eval=T}
 # Asignamos al objeto "path" la ruta del archivo que utilizaremos
@@ -42,7 +44,7 @@ file <- "bradypus.csv"
 fileStrig <- paste0(path,"/",file)
 fileStrig
 
-# Leemos el archivo mediante la funciÛn "read.csv"
+# Leemos el archivo mediante la funci√≥n "read.csv"
 bradypus <- read.csv(file = fileStrig)
 
 # Es posible observar una porcion de los datos cargados
@@ -52,24 +54,37 @@ head(bradypus)
 
 
 
-Cabe destacar que es posible leer estos datos utilizando tambiÈn la funciÛn `read.table()` o `read.delim()`
+Cabe destacar que es posible leer estos datos utilizando tambi√©n la funci√≥n `read.table()` o `read.delim()`
 
 ```{r}
-# Leemos el archivo mediante la funciÛn "read.table"
+# Leemos el archivo mediante la funci√≥n "read.table"
 bradypus <- read.table(file = fileStrig,sep = ",",dec = ".",header = T)
 head(bradypus)
 
-# Leemos el archivo mediante la funciÛn "read.delim"
+# Leemos el archivo mediante la funci√≥n "read.delim"
 bradypus <- read.delim(file = fileStrig,sep = ",",dec = ".",header = T)
 head(bradypus)
 ```
 
-
 ## Otros formatos para importar
+As√≠ como importamos la base de datos a partir de un *csv* que conten√≠a la informaci√≥n, tambi√©n es posible utilizar distintas extensiones de archivos, como por ejemplo los textos delimitados por tabulaci√≥n (*txt*), la extensi√≥n de Microsoft Excel (*xls* o *xlsx*) o extensiones m√°s conocidas en el mundo del an√°lisis espacial como lo son el Keyhole Markup Language (*kml*) de Google Earth o el Shape File (*shp*) de ESRI, los cuales veremos m√°s a delante.
 
-AsÌ como importamos la base de datos a partir de un *csv* que contenÌa la informaciÛn, tambiÈn es posible utilizar distintas extensiones de archivos, como por ejemplo los textos delimitados por tabulaciÛn (*txt*), la extensiÛn de Microsoft Excel (*xls* o *xlsx*) o extensiones m·s conocidas en el mundo del an·lisis espacial como lo son el Keyhole Markup Language (*kml*) de Google Earth o el Shape File (*shp*) de ESRI, los cuales veremos m·s a delante.
-Para las primeras 3 extensiones, la manera en que se pueden cargar los archivos son relativamente parecidas, la gran diferencia es que el texto delimitado por tabulaciÛn no necesita de paquetes externos al de `r base` para su importaciÛn.
-A continuaciÛn veremos de manera muy resumida como importar la misma base de datos proveniente de distintos ficheros con estas 3 extensiones.
+Para las primeras 3 extensiones, la manera en que se pueden cargar los archivos son relativamente parecidas, la gran diferencia es que el texto delimitado por tabulaci√≥n no necesita de paquetes externos al de *r base* para su importaci√≥n.
+A continuaci√≥n veremos de manera muy resumida como importar la misma base de datos proveniente de distintos ficheros con estas 3 extensiones.
+
+### textos delimitados por tabilaci√≥n (*txt*)
+```{r}
+# Asignamos al objeto "fileStrig" ruta completa del archivo
+fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.txt"
+
+# Leemos el archivo mediante la funci√≥n "read.table"
+bradypus <- read.table(file = fileStrig,sep = "\t",dec = ".",header = T)
+head(bradypus)
+
+# Leemos el archivo mediante la funci√≥n "read.delim"
+bradypus <- read.delim(file = fileStrig,sep = "\t",dec = ".",header = T)
+head(bradypus)
+```
 
 ### libro de Microsoft Excel 1997-2003 (*xls*)
 ```{r}
@@ -81,9 +96,9 @@ temp <- tempfile(fileext = ".xls")
 
 # Asignamos al objeto "fileStrig" ruta completa del archivo y lo descargamos
 fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.xls"
-curl::curl_download(fileStrig, temp)
+curl::curl_download(fileStrig, temp) # descargar el fichero en el archivo temporal 
 
-# Leemos el archivo temporal mediante la funciÛn "read_excel"
+# Leemos el archivo temporal mediante la funci√≥n "read_excel"
 bradypus <- read_excel(temp,1)
 head(bradypus)
 ```
@@ -96,39 +111,26 @@ library(openxlsx)
 # Asignamos al objeto "fileStrig" ruta completa del archivo
 fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.xlsx"
 
-# Leemos el archivo temporal mediante la funciÛn "read_excel"
+# Leemos el archivo temporal mediante la funci√≥n "read_excel"
 bradypus <- read.xlsx(fileStrig,1)
 head(bradypus)
 ```
 
-### textos delimitados por tabilaciÛn (*txt*)
-```{r}
-# Asignamos al objeto "fileStrig" ruta completa del archivo
-fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.txt"
-
-# Leemos el archivo mediante la funciÛn "read.table"
-bradypus <- read.table(file = fileStrig,sep = "\t",dec = ".",header = T)
-head(bradypus)
-
-# Leemos el archivo mediante la funciÛn "read.delim"
-bradypus <- read.delim(file = fileStrig,sep = "\t",dec = ".",header = T)
-head(bradypus)
-```
 <br>
-Es posible apreciar que el objeto `bradypus` es un data.frame com˙n y que no constituye un objeto de tipo espacial
+  Es posible apreciar que el objeto `bradypus` es un data.frame com√∫n y que no constituye un objeto de tipo espacial
 ```{r}
 class(bradypus)
 ```
 <br>
-Es importante precisar que los datos puntuales requieren contar con al menos 2 variables correspondientes a las coordenadas geogr·ficas verticales (*latitud*) y horizontales (*longitud*), a las que adicionalmente se les puede incluir una tercera variable correspondiente a la coordenada ortogonal de altura (*altitud*). Para este ejemplo es posible apreciar que contamos con la variable horizontal y vertical de coordenadas, *lon* y *lat* respectivamente.
+  Es importante precisar que los datos puntuales requieren contar con al menos 2 variables correspondientes a las coordenadas geogr√°ficas verticales (*latitud*) y horizontales (*longitud*), a las que adicionalmente se les puede incluir una tercera variable correspondiente a la coordenada ortogonal de altura (*altitud*). Para este ejemplo es posible apreciar que contamos con la variable horizontal y vertical de coordenadas, *lon* y *lat* respectivamente.
 
 ```{r,echo = F}
 library(knitr)
 kable(head(bradypus), align ="c")
 
 ```
-<br>
-Para crear objetos espaciales a partir de matrices o data.frames con coordenadas espaciales es posible utilizar las funciones `SpatialPoints()`,`SpatialPointsDataFrame()` o `coordinates()`. Es preciso mencionar que para utilizar dichas funciones es necesario llamar al paquete `sp` el cual se carga autom·ticamente al llamar a los paquetes `raster` y/o `rgdal`. TambiÈn es necesario que las coordenadas espaciales se encuentren registradas en un ˙nico sistema de referencia con su respectivo DATUM y tener muy claro a cual corresponde para evitar problemas al momento de georreferenciar las coordenadas.
+## Crear capas espaciales de puntos
+  Para crear objetos espaciales a partir de matrices o data.frames con coordenadas espaciales es posible utilizar las funciones `SpatialPoints()`,`SpatialPointsDataFrame()` o `coordinates()`. Es preciso mencionar que para utilizar dichas funciones es necesario llamar al paquete `sp` el cual se carga autom√°ticamente al llamar a los paquetes `raster` y/o `rgdal`. Tambi√©n es necesario que las coordenadas espaciales se encuentren registradas en un √∫nico sistema de referencia con su respectivo DATUM y tener muy claro a cual corresponde para evitar problemas al momento de georreferenciar las coordenadas.
 
 
 ```{r, fig.align='center'}
@@ -148,10 +150,10 @@ bradypus.sp
 # graficamos el objeto espacial, cosa que no era posible hacer con el data.frame
 plot(bradypus.sp,axes=T,col="blue")
 
-# a√É¬±adimos a la gr·fica la capa espacial del mundo
+# a√±adimos a la gr√°fica la capa espacial del mundo
 plot(wrld_simpl,add=T)
 
-# realizamos el mismo procedimiento con la funciÛn "SpatialPointsDataFrame"
+# realizamos el mismo procedimiento con la funci√≥n "SpatialPointsDataFrame"
 bradypus.sp2 <- SpatialPointsDataFrame(bradypus[c("lon","lat")], data = bradypus["species"], proj4string=crs("+init=epsg:4326"))
 bradypus.sp2
 
@@ -159,7 +161,7 @@ bradypus.sp2
 plot(bradypus.sp2,axes=T,col="red")
 plot(wrld_simpl,add=T)
 
-# ahora realizamos el mismo procedimiento con la funciÛn "coordinates"
+# ahora realizamos el mismo procedimiento con la funci√≥n "coordinates"
 bradypus.sp3 <- bradypus
 coordinates(bradypus.sp3) <- ~lon+lat
 crs(bradypus.sp3)=crs("+init=epsg:4326")
@@ -170,6 +172,9 @@ plot(bradypus.sp3,axes=T,col="forestgreen")
 plot(wrld_simpl,add=T)
 ```
 <br>
-CÛmo habr·n podido notar, los 3 mÈtodos permiten obtener resultados muy parecidos utilizando a su vez una sintaxis simple que no requiere mayor an·lisis, es decir, se requiere la base de datos con coordenadas y el sistema de referencia, la principal diferencia radica en que la funciÛn `SpatialPoints()` devuelve solo las coordenadas espaciales georreferenciadas mientras que las otras 2 georeferencian todo el contenido de la base de datos.
+  C√≥mo habr√°n podido notar, los 3 m√©todos permiten obtener resultados muy parecidos utilizando a su vez una sintaxis simple que no requiere mayor an√°lisis, es decir, se requiere la base de datos con coordenadas y el sistema de referencia, la principal diferencia radica en que la funci√≥n `SpatialPoints()` devuelve solo las coordenadas espaciales georreferenciadas mientras que las otras 2 georeferencian todo el contenido de la base de datos.
+  
+## Importar capas vectoriales
+Ya vimos como importar informaci√≥n y crear capas vectoriales a partit de bases de datos puntuales, pero en el mundo del an√°lisis espacial se manejan distintos formatos y archivos con los que van a toparse de vez en cuando, algunos de estos formatos con los ya mencionados *shp* y *kml*, por suerte existen paquetes para importar y manipular dichos archivos, una de las funciones m√°s utilizadas para cargar estos archivos `readOGR()` del paquete `rgdal`
 
 Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

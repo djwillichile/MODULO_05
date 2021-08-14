@@ -223,6 +223,9 @@ head(bradypus)</code></pre>
 ## 4 Bradypus variegatus -63.6667 -17.4500
 ## 5 Bradypus variegatus -63.8500 -17.4000
 ## 6 Bradypus variegatus -64.4167 -16.0000</code></pre>
+<p><br> Es posible apreciar que el objeto <code>bradypus</code> es un dataframe común y que no consituye un objeto de tipo espacial</p>
+<pre class="r"><code>class(bradypus)</code></pre>
+<pre><code>## [1] &quot;data.frame&quot;</code></pre>
 <p><br> Es importante precisar que los datos puntuales requiren contar con al menos 2 variables correspondientes a las coordenadas geográficas verticales (<em>latitud</em>) y horizontales (<em>longitud</em>), a las que adicionalmente se les puede incluir una tercera variable correspondiente a la coordenada ortogonal de altura (<em>altitud</em>). Para este ejemplo es posible apreciar que contamos con la variable horizontal y vertical de coordenadas, <em>lon</em> y <em>lat</em> respectivamente.</p>
 <table>
 <thead>
@@ -263,28 +266,30 @@ head(bradypus)</code></pre>
 <td align="center">-64.4167</td>
 <td align="center">-16.0000</td>
 </tr>
-<tr class="odd">
-<td align="center">Bradypus variegatus</td>
-<td align="center">-63.1667</td>
-<td align="center">-17.8000</td>
-</tr>
-<tr class="even">
-<td align="center">Bradypus variegatus</td>
-<td align="center">-56.7333</td>
-<td align="center">-2.6000</td>
-</tr>
-<tr class="odd">
-<td align="center">Bradypus variegatus</td>
-<td align="center">-59.1333</td>
-<td align="center">-3.7000</td>
-</tr>
-<tr class="even">
-<td align="center">Bradypus variegatus</td>
-<td align="center">-60.0833</td>
-<td align="center">-3.1333</td>
-</tr>
 </tbody>
 </table>
+<p><br> Para rear objetos espaciales a partir de matrices o dara.frames con coordenadas espaciales es posible utilizar las funciones <code>SpatialPoints()</code>,<code>SpatialPointsDataFrame()</code> o <code>coordinates()</code>. Es preciso mencionar que para utilizar dichas funcioens es necesario llamar al paquete <code>sp</code> el cual se carga automáticamente al llamar a los paquetes <code>raster</code> y/o <code>rgdal</code>. También es necesario que las coordenadas espaciales se encuentren registradas en un único sistema de referencia con su respectivo DATUM y tener muy claro a cual corresponde para evitar problemas al momento de georreferenciar las coordenadas.</p>
+<pre class="r"><code># Cargamos paquetes espaciales
+library(raster)</code></pre>
+<pre><code>## Loading required package: sp</code></pre>
+<pre class="r"><code>library(rgdal)</code></pre>
+<pre><code>## rgdal: version: 1.5-12, (SVN revision 1018)
+## Geospatial Data Abstraction Library extensions to R successfully loaded
+## Loaded GDAL runtime: GDAL 3.0.4, released 2020/01/28
+## Path to GDAL shared files: C:/Users/Admin/Documents/R/win-library/3.6/rgdal/gdal
+## GDAL binary built with GEOS: TRUE 
+## Loaded PROJ runtime: Rel. 6.3.1, February 10th, 2020, [PJ_VERSION: 631]
+## Path to PROJ shared files: C:/Users/Admin/Documents/R/win-library/3.6/rgdal/proj
+## Linking to sp version:1.4-2
+## To mute warnings of possible GDAL/OSR exportToProj4() degradation,
+## use options(&quot;rgdal_show_exportToProj4_warnings&quot;=&quot;none&quot;) before loading rgdal.</code></pre>
+<pre class="r"><code># Creamos el objeto espacial &quot;bradypus.sp&quot;
+bradypus.sp&lt;-SpatialPoints(bradypus[c(&quot;lon&quot;,&quot;lat&quot;)], proj4string=CRS(as.character(NA)))
+bradypus.sp</code></pre>
+<pre><code>## class       : SpatialPoints 
+## features    : 116 
+## extent      : -85.9333, -40.0667, -23.45, 13.95  (xmin, xmax, ymin, ymax)
+## crs         : NA</code></pre>
 <p>This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <a href="http://rmarkdown.rstudio.com" class="uri">http://rmarkdown.rstudio.com</a>.</p>
 <p>When you click the <strong>Knit</strong> button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:</p>
 <pre class="r"><code>summary(cars)</code></pre>

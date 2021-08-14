@@ -32,7 +32,7 @@ fileStrig <- paste0(path,"/",file)
 fileStrig
 
 # Leemos el archivo mediante la función "read.csv"
-bradypus<-read.csv(file = fileStrig)
+bradypus <- read.csv(file = fileStrig)
 
 # Es posible observar una porcion de los datos cargados
 head(bradypus)
@@ -43,20 +43,20 @@ Cabe destacar que es posible leer estos datos utilizando también la función `r
 
 ```{r}
 # Leemos el archivo mediante la función "read.table"
-bradypus<-read.table(file = fileStrig,sep = ",",dec = ".",header = T)
+bradypus <- read.table(file = fileStrig,sep = ",",dec = ".",header = T)
 head(bradypus)
 
 # Leemos el archivo mediante la función "read.delim"
-bradypus<-read.delim(file = fileStrig,sep = ",",dec = ".",header = T)
+bradypus <- read.delim(file = fileStrig,sep = ",",dec = ".",header = T)
 head(bradypus)
 ```
 <br>
-Es posible apreciar que el objeto `bradypus` es un dataframe común y que no consituye un objeto de tipo espacial
+Es posible apreciar que el objeto `bradypus` es un data.frame común y que no constituye un objeto de tipo espacial
 ```{r}
 class(bradypus)
 ```
 <br>
-Es importante precisar que los datos puntuales requiren contar con al menos 2 variables correspondientes a las coordenadas geográficas verticales (*latitud*) y horizontales (*longitud*), a las que adicionalmente se les puede incluir una tercera variable correspondiente a la coordenada ortogonal de altura (*altitud*). Para este ejemplo es posible apreciar que contamos con la variable horizontal y vertical de coordenadas, *lon* y *lat* respectivamente.
+Es importante precisar que los datos puntuales requieren contar con al menos 2 variables correspondientes a las coordenadas geográficas verticales (*latitud*) y horizontales (*longitud*), a las que adicionalmente se les puede incluir una tercera variable correspondiente a la coordenada ortogonal de altura (*altitud*). Para este ejemplo es posible apreciar que contamos con la variable horizontal y vertical de coordenadas, *lon* y *lat* respectivamente.
 
 ```{r,echo = F}
 library(knitr)
@@ -64,17 +64,26 @@ kable(head(bradypus), align ="c")
 
 ```
 <br>
-Para rear objetos espaciales a partir de matrices o dara.frames con coordenadas espaciales es posible utilizar las funciones `SpatialPoints()`,`SpatialPointsDataFrame()` o `coordinates()`. Es preciso mencionar que para utilizar dichas funcioens es necesario llamar al paquete `sp` el cual se carga automáticamente al llamar a los paquetes `raster` y/o `rgdal`. También es necesario que las coordenadas espaciales se encuentren registradas en un único sistema de referencia con su respectivo DATUM y tener muy claro a cual corresponde para evitar problemas al momento de georreferenciar las coordenadas.
+Para crear objetos espaciales a partir de matrices o data.frames con coordenadas espaciales es posible utilizar las funciones `SpatialPoints()`,`SpatialPointsDataFrame()` o `coordinates()`. Es preciso mencionar que para utilizar dichas funciones es necesario llamar al paquete `sp` el cual se carga automáticamente al llamar a los paquetes `raster` y/o `rgdal`. También es necesario que las coordenadas espaciales se encuentren registradas en un único sistema de referencia con su respectivo DATUM y tener muy claro a cual corresponde para evitar problemas al momento de georreferenciar las coordenadas.
 
 ```{r}
 # Cargamos paquetes espaciales
 library(raster)
 library(rgdal)
+library(maptools)
 
-# Creamos el objeto espacial "bradypus.sp"
-bradypus.sp<-SpatialPoints(bradypus[c("lon","lat")], proj4string=CRS(as.character(NA)))
+# importamos una capa espacial del mundo para contextualizar
+data(wrld_simpl)
+
+# Creamos el objeto espacial "bradypus.sp" donde proj4string corresponde al sistema de referencia
+bradypus.sp <- SpatialPoints(bradypus[c("lon","lat")], proj4string=crs("+init=epsg:4326"))
 bradypus.sp
 
+# graficamos el objeto espacial, cosa que no era posible hacer con el data.frame
+plot(bradypus.sp,axes=T,col="blue")
+
+# añadimos a la gráfica la capa espacial del mundo
+plot(wrld_simpl,add=T)
 ```
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.

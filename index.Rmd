@@ -175,7 +175,7 @@ plot(wrld_simpl,add=T)
   Cómo habrán podido notar, los 3 métodos permiten obtener resultados muy parecidos utilizando a su vez una sintaxis simple que no requiere mayor análisis, es decir, se requiere la base de datos con coordenadas y el sistema de referencia, la principal diferencia radica en que la función `SpatialPoints()` devuelve solo las coordenadas espaciales georreferenciadas mientras que las otras 2 georeferencian todo el contenido de la base de datos.
   
 ## Importar capas vectoriales
-Ya aprendimos como importar información y crear capas vectoriales a partit de bases de datos puntuales, pero en el mundo del análisis espacial se manejan distintos formatos y archivos con los que van a toparse de vez en cuando, algunos de estos formatos con los ya mencionados *shp* y *kml*, por suerte existen paquetes para importar y manipular dichos archivos, una de las funciones más utilizadas para cargar estos archivos `readOGR()` del paquete `rgdal`
+Ya aprendimos como importar información y crear capas vectoriales a partir de bases de datos puntuales, pero en el mundo del análisis espacial se manejan distintos formatos y archivos con los que van a toparse de vez en cuando, algunos de estos formatos con los ya mencionados *shp* y *kml*, por suerte existen paquetes para importar y manipular dichos archivos, una de las funciones más utilizadas para cargar estos archivos `readOGR()` del paquete `rgdal`
 
 ```{r , include=FALSE}
 dev.off(dev.list())
@@ -191,6 +191,20 @@ bradypus
 
 # graficamos
 par(mar = c(2, 2, 0.1, 0.1))
+plot(bradypus.sp2,axes=T,col="blue")
+plot(wrld_simpl,add=T)
+
+# Asignamos al objeto "fileStrig" ruta completa del archivo shp
+fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.shp"
+
+# importamos la capa mediante la función "readOGR"
+bradypus <- readOGR("DATA/bradypus.shp",encoding = "ESRI Shapefile")
+bradypus
+
+# graficamos
+par(mar = c(2, 2, 0.1, 0.1))
 plot(bradypus.sp2,axes=T,col="red")
 plot(wrld_simpl,add=T)
 ```
+<br>
+Como ya habrán visto, la importación de estos datos espaciales sigue el mismo patrón, la función `readOGR()` requiere el nombre del archivo y algunas veces la codificación de este para que no se desconfigure la base de datos no espacial asociada al archivo, de todos modos podrán revisar el detalle de esta función incorporando un sigo de interrogación antes de la función (`?readOGR()`) u ocupando la función help (`help("readOGR")`)

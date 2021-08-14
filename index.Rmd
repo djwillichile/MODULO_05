@@ -15,18 +15,51 @@ Es posible distinguir 3 tipos de geometrías en el modelo vectorial para el aná
 ![](https://volaya.github.io/libro-sig/img/Primitivas_vectoriales.png){width='100%'}
 
 ## Importación de datos puntuales
-Existe un gran número de formatos en que se puede importar datos, un ejemplo de estos es el ya conocido **csv** (*Comma Separated Values*), o el versátil **xlsx** de Excel, a continuación se importarán datos desde los formatos csv, xlsx, shp y kml. Para estos ejemplos utilizaremos los materiales encontrados en el repositorio <https://github.com/djwillichile/MODULO_05>
+Existe un gran número de formatos en que se puede importar datos, un ejemplo de estos es el ya conocido **csv** (*Comma Separated Values*), o el versátil **xlsx** de Excel, a continuación se importarán datos desde los formatos csv, xlsx, shp y kml. Para estos ejemplos utilizaremos los materiales encontrados en el repositorio <https://djwillichile.github.io/MODULO_05/DATA>
 
-## importar datos desde csv
+### importar datos desde csv
 Este método es uno de los más sencillos de implementar y a la vez, el que permite más formas distintas de realizarlo. utilizaremos el archivo *bradypus.csv*
 
-```{r}
-file<-"DATA/bradypus.csv"
+```{r, include = T}
+# Asignamos al objeto "path" la ruta del archivo que utilizaremos
+path <- "https://djwillichile.github.io/MODULO_05/DATA"
 
+# Asignamos al objeto "file" el nombre del archivo que utilizaremos
+file <- "bradypus.csv"
 
-bradypus<-read.csv(file)
+#ruta completa del archivo
+fileStrig <- paste0(path,"/",file)
+fileStrig
+
+# Leemos el archivo mediante la función "read.csv"
+bradypus<-read.csv(file = fileStrig)
+
+# Es posible observar una porcion de los datos cargados
 head(bradypus)
+
 ```
+<br>
+Cabe destacar que es posible leer estos datos utilizando también la función `read.table()` o `read.delim()`
+
+```{r}
+# Leemos el archivo mediante la función "read.table"
+bradypus<-read.table(file = fileStrig,sep = ",",dec = ".",header = T)
+head(bradypus)
+
+# Leemos el archivo mediante la función "read.delim"
+bradypus<-read.delim(file = fileStrig,sep = ",",dec = ".",header = T)
+head(bradypus)
+
+```
+<br>
+Es importante precisar que los datos puntuales requiren contar con al menos 2 variables correspondientes a las coordenadas geográficas verticales (*latitud*) y horizontales (*longitud*), a las que adicionalmente se les puede incluir una tercera variable correspondiente a la coordenada ortogonal de altura (*altitud*). Para este ejemplo es posible apreciar que contamos con la variable horizontal y vertical de coordenadas, *lon* y *lat* respectivamente.
+
+```{r,echo = F}
+library(knitr)
+kable(head(bradypus,10), align ="c")
+
+```
+
 
 This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
@@ -34,6 +67,10 @@ When you click the **Knit** button a document will be generated that includes bo
 
 ```{r cars}
 summary(cars)
+
+require(knitr)
+kable(head(cars,10), booktabs = TRUE,align ="c")
+
 ```
 
 ## Including Plots

@@ -1,7 +1,7 @@
 ---
-title: "Importación de información espacial"
+title: "Módulo 6: Manipulación de información espacial"
 author: "Guillermo S. Fuentes Jaque"
-date: "August 12, 2021"
+date: "August 20, 2021"
 output:
   html_document:
     highlight: haddock
@@ -12,7 +12,8 @@ output:
 ---
 
 <style>
-  body {text-align: justify;font-family: sans-serif}
+  body {text-align: justify;font-family: sans-serif;}
+  #header {text-align: center;}
 </style>
 
 ```{r setup, include=FALSE}
@@ -21,21 +22,24 @@ knitr::opts_knit$set(global.device = TRUE)
 Sys.setenv(LANG = "es")
 ```
 
-# Datos espaciales
+<br>
+
+
+# Información espacial del modelo vectorial
 
 Es posible distinguir 3 tipos de geometrías en el modelo vectorial para el análisis espacial, estos corresponden a **puntos**, **líneas** y **polígonos**, los cuales hacen referencia a elementos con características particulares y su respectiva representación en el espacio, los polígonos representan elementos unidimensionales como por ejemplo superficies, las líneas representan elementos unidimensionales como por ejemplo calles o ríos, mientras que los puntos representarán la posición de algún objeto en el espacio, por ejemplo, un individuo, el centro de una ciudad e incluso la presencia de algún evento.
 
-![](https://volaya.github.io/libro-sig/img/Primitivas_vectoriales.png){width='100%'}
+![Figura 1: Diferentes entidades y su representación espacial. ](IMG/Primitivas_vectoriales.png){width='100%'}
 
 ## Importación de datos puntuales
-Existe un gran número de formatos en que se puede importar datos, un ejemplo de estos es el ya conocido **csv** (*Comma Separated Values*), o el versátil **xlsx** de Excel, a continuación se importarán datos desde los formatos csv, xlsx, shp y kml. Para estos ejemplos utilizaremos los materiales encontrados en el repositorio <https://github.com/djwillichile/MODULO_05/tree/gh-pages/DATA>, también pueden acceder a todo el material utilizado para esta actividad mediante el siguiente **[enlace](https://djwillichile.github.io/MODULO_05/DATA/Materiales.zip)**.
+Existe un gran número de formatos en que se puede importar datos, un ejemplo de estos es el ya conocido **csv** (*Comma Separated Values*), o el versátil **xlsx** de Excel, a continuación se importarán datos desde los formatos csv, xlsx, shp y kml. Para estos ejemplos utilizaremos los materiales encontrados en el repositorio <https://djwillichile.github.io/MODULO_05/DATA>
 
-## importar datos desde csv
+### importar datos desde csv
 Este método es uno de los más sencillos de implementar y a la vez, el que permite más formas distintas de realizarlo. utilizaremos el archivo *bradypus.csv*
 
-```{r, include = T,eval=T}
+```{r, include = T}
 # Asignamos al objeto "path" la ruta del archivo que utilizaremos
-path <- "https://djwillichile.github.io/MODULO_05/DATA"
+path <- "https://djwillichile.github.io/MODULO_06/DATA"
 
 # Asignamos al objeto "file" el nombre del archivo que utilizaremos
 file <- "bradypus.csv"
@@ -45,166 +49,53 @@ fileStrig <- paste0(path,"/",file)
 fileStrig
 
 # Leemos el archivo mediante la función "read.csv"
-bradypus <- read.csv(file = fileStrig)
+bradypus<-read.csv(file = fileStrig)
 
 # Es posible observar una porcion de los datos cargados
 head(bradypus)
 
 ```
-
-
-
+<br>
 Cabe destacar que es posible leer estos datos utilizando también la función `read.table()` o `read.delim()`
 
 ```{r}
 # Leemos el archivo mediante la función "read.table"
-bradypus <- read.table(file = fileStrig,sep = ",",dec = ".",header = T)
+bradypus<-read.table(file = fileStrig,sep = ",",dec = ".",header = T)
 head(bradypus)
 
 # Leemos el archivo mediante la función "read.delim"
-bradypus <- read.delim(file = fileStrig,sep = ",",dec = ".",header = T)
-head(bradypus)
-```
-
-## Otros formatos para importar
-Así como importamos la base de datos a partir de un *csv* que contenía la información, también es posible utilizar distintas extensiones de archivos, como por ejemplo los textos delimitados por tabulación (*txt*), la extensión de Microsoft Excel (*xls* o *xlsx*) o extensiones más conocidas en el mundo del análisis espacial como lo son el Keyhole Markup Language (*kml*) de Google Earth o el Shape File (*shp*) de ESRI, los cuales veremos más a delante.
-
-Para las primeras 3 extensiones, la manera en que se pueden cargar los archivos son relativamente parecidas, la gran diferencia es que el texto delimitado por tabulación no necesita de paquetes externos al de *r base* para su importación.
-A continuación veremos de manera muy resumida como importar la misma base de datos proveniente de distintos ficheros con estas 3 extensiones.
-
-### textos delimitados por tabilación (*txt*)
-```{r}
-# Asignamos al objeto "fileStrig" ruta completa del archivo
-fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.txt"
-
-# Leemos el archivo mediante la función "read.table"
-bradypus <- read.table(file = fileStrig,sep = "\t",dec = ".",header = T)
+bradypus<-read.delim(file = fileStrig,sep = ",",dec = ".",header = T)
 head(bradypus)
 
-# Leemos el archivo mediante la función "read.delim"
-bradypus <- read.delim(file = fileStrig,sep = "\t",dec = ".",header = T)
-head(bradypus)
-```
-
-### libro de Microsoft Excel 1997-2003 (*xls*)
-```{r}
-# cargamos paquete para soportar el formato
-library(readxl)
-
-# creamos un archivo temporal en el objeto "temp"
-temp <- tempfile(fileext = ".xls")
-
-# Asignamos al objeto "fileStrig" ruta completa del archivo y lo descargamos
-fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.xls"
-curl::curl_download(fileStrig, temp) # descargar el fichero en el archivo temporal 
-
-# Leemos el archivo temporal mediante la función "read_excel"
-bradypus <- read_excel(temp,1)
-head(bradypus)
-```
-
-### libro de Microsoft Excel (*xlsx*)
-```{r}
-# cargamos paquete para soportar el formato
-library(openxlsx)
-
-# Asignamos al objeto "fileStrig" ruta completa del archivo
-fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.xlsx"
-
-# Leemos el archivo temporal mediante la función "read_excel"
-bradypus <- read.xlsx(fileStrig,1)
-head(bradypus)
-```
-
-<br>
-  Es posible apreciar que el objeto `bradypus` es un data.frame común y que no constituye un objeto de tipo espacial
-```{r}
-class(bradypus)
 ```
 <br>
-  Es importante precisar que los datos puntuales requieren contar con al menos 2 variables correspondientes a las coordenadas geográficas verticales (*latitud*) y horizontales (*longitud*), a las que adicionalmente se les puede incluir una tercera variable correspondiente a la coordenada ortogonal de altura (*altitud*). Para este ejemplo es posible apreciar que contamos con la variable horizontal y vertical de coordenadas, *lon* y *lat* respectivamente.
+Es importante precisar que los datos puntuales requiren contar con al menos 2 variables correspondientes a las coordenadas geográficas verticales (*latitud*) y horizontales (*longitud*), a las que adicionalmente se les puede incluir una tercera variable correspondiente a la coordenada ortogonal de altura (*altitud*). Para este ejemplo es posible apreciar que contamos con la variable horizontal y vertical de coordenadas, *lon* y *lat* respectivamente.
 
 ```{r,echo = F}
 library(knitr)
-kable(head(bradypus), align ="c")
+kable(head(bradypus,10), align ="c")
 
 ```
-## Crear capas espaciales de puntos
-  Para crear objetos espaciales a partir de matrices o data.frames con coordenadas espaciales es posible utilizar las funciones `SpatialPoints()`,`SpatialPointsDataFrame()` o `coordinates()`. Es preciso mencionar que para utilizar dichas funciones es necesario llamar al paquete `sp` el cual se carga automáticamente al llamar a los paquetes `raster` y/o `rgdal`. También es necesario que las coordenadas espaciales se encuentren registradas en un único sistema de referencia con su respectivo DATUM y tener muy claro a cual corresponde para evitar problemas al momento de georreferenciar las coordenadas.
 
 
-```{r, fig.align='center'}
-# Cargamos paquetes espaciales
-library(raster)
-library(rgdal)
-library(maptools)
+This is an R Markdown document. Markdown is a simple formatting syntax for authoring HTML, PDF, and MS Word documents. For more details on using R Markdown see <http://rmarkdown.rstudio.com>.
 
-# importamos una capa espacial del mundo para contextualizar
-data(wrld_simpl)
-par(mar = c(2, 2, 0.1, 0.1))
+When you click the **Knit** button a document will be generated that includes both content as well as the output of any embedded R code chunks within the document. You can embed an R code chunk like this:
 
-# Creamos el objeto espacial "bradypus.sp" donde proj4string corresponde al sistema de referencia
-bradypus.sp <- SpatialPoints(bradypus[c("lon","lat")], proj4string=crs("+init=epsg:4326"))
-bradypus.sp
+```{r cars}
+summary(cars)
 
-# graficamos el objeto espacial, cosa que no era posible hacer con el data.frame
-plot(bradypus.sp,axes=T,col="blue")
+require(knitr)
+kable(head(cars,10), booktabs = TRUE,align ="c")
 
-# añadimos a la gráfica la capa espacial del mundo
-plot(wrld_simpl,add=T)
-
-# realizamos el mismo procedimiento con la función "SpatialPointsDataFrame"
-bradypus.sp2 <- SpatialPointsDataFrame(bradypus[c("lon","lat")], data = bradypus["species"], proj4string=crs("+init=epsg:4326"))
-bradypus.sp2
-
-# graficamos
-plot(bradypus.sp2,axes=T,col="red")
-plot(wrld_simpl,add=T)
-
-# ahora realizamos el mismo procedimiento con la función "coordinates"
-bradypus.sp3 <- bradypus
-coordinates(bradypus.sp3) <- ~lon+lat
-crs(bradypus.sp3)=crs("+init=epsg:4326")
-bradypus.sp3
-
-# graficamos
-plot(bradypus.sp3,axes=T,col="forestgreen")
-plot(wrld_simpl,add=T)
-```
-<br>
-  Cómo habrán podido notar, los 3 métodos permiten obtener resultados muy parecidos utilizando a su vez una sintaxis simple que no requiere mayor análisis, es decir, se requiere la base de datos con coordenadas y el sistema de referencia, la principal diferencia radica en que la función `SpatialPoints()` devuelve solo las coordenadas espaciales georreferenciadas mientras que las otras 2 georeferencian todo el contenido de la base de datos.
-  
-## Importar capas vectoriales
-Ya aprendimos como importar información y crear capas vectoriales a partir de bases de datos puntuales, pero en el mundo del análisis espacial se manejan distintos formatos y archivos con los que van a toparse de vez en cuando, algunos de estos formatos con los ya mencionados *shp* y *kml*, por suerte existen paquetes para importar y manipular dichos archivos, una de las funciones más utilizadas para cargar estos archivos `readOGR()` del paquete `rgdal`
-
-```{r , include=FALSE}
-dev.off(dev.list())
 ```
 
-```{r, fig.align='center'}
-# Asignamos al objeto "fileStrig" ruta completa del archivo kml
-fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.kml"
+## Including Plots
 
-# importamos la capa mediante la función "readOGR"
-bradypus <- readOGR(fileStrig,layer = "bradypus")
-bradypus
+You can also embed plots, for example:
 
-# graficamos
-par(mar = c(2, 2, 0.1, 0.1))
-plot(bradypus.sp2,axes=T,col="blue")
-plot(wrld_simpl,add=T)
-
-# Asignamos al objeto "fileStrig" ruta completa del archivo shp
-fileStrig <- "https://djwillichile.github.io/MODULO_05/DATA/bradypus.shp"
-
-# importamos la capa mediante la función "readOGR"
-bradypus <- readOGR("DATA/bradypus.shp",encoding = "ESRI Shapefile")
-bradypus
-
-# graficamos
-par(mar = c(2, 2, 0.1, 0.1))
-plot(bradypus.sp2,axes=T,col="red")
-plot(wrld_simpl,add=T)
+```{r pressure, echo=FALSE}
+plot(pressure)
 ```
-<br>
-Como ya habrán visto, la importación de estos datos espaciales sigue el mismo patrón, la función `readOGR()` requiere el nombre del archivo y algunas veces la codificación de este para que no se desconfigure la base de datos no espacial asociada al archivo, de todos modos podrán revisar el detalle de esta función incorporando un sigo de interrogación antes de la función (`?readOGR()`) u ocupando la función help (`help("readOGR")`)
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

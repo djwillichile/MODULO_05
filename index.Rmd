@@ -18,6 +18,8 @@ output:
 <style>
   body {text-align: justify;font-family: sans-serif;}
   #header {text-align: center;}
+  .footer {text-align: center; padding-top: 7%; padding-bottom: 5%;
+  background-color: rgba(80, 110, 120,.5);}
 </style>
 
 
@@ -77,12 +79,12 @@ head(bradypus)
 ```
 
 ## Otros formatos para importar
-Así como importamos la base de datos a partir de un *csv* que contenía la información, también es posible utilizar distintas extensiones de archivos, como por ejemplo los textos delimitados por tabulación (*txt*), la extensión de Microsoft Excel (*xls* o *xlsx*) o extensiones más conocidas en el mundo del análisis espacial como lo son el Keyhole Markup Language (*kml*) de Google Earth o el Shape File (*shp*) de ESRI, los cuales veremos más a delante.
+Así como importamos la base de datos a partir de un *csv* que contenía la información, también es posible utilizar distintas extensiones de archivos, como por ejemplo los archivos de texto delimitado (*txt*), la extensión de Microsoft Excel (*xls* o *xlsx*) o extensiones más conocidas en el mundo del análisis espacial como lo son el Keyhole Markup Language (*kml*) de Google Earth o el Shape File (*shp*) de ESRI, los cuales veremos más a delante.
 
-Para las primeras 3 extensiones, la manera en que se pueden cargar los archivos son relativamente parecidas, la gran diferencia es que el texto delimitado por tabulación no necesita de paquetes externos al de *r base* para su importación.
+Para las primeras 3 extensiones, la manera en que se pueden cargar los archivos son relativamente parecidas, la gran diferencia es que el archivo de texto delimitado no necesita de paquetes externos al de *r base* para su importación.
 A continuación veremos de manera muy resumida como importar la misma base de datos proveniente de distintos ficheros con estas 3 extensiones.
 
-### Textos delimitados por tabilación (*txt*)
+### Archivos de texto delimitado (*txt*)
 ```{r}
 # Asignamos al objeto "fileStrig" ruta completa del archivo
 fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/bradypus.txt"
@@ -222,4 +224,6 @@ Como ya habrán visto, la importación de estos datos espaciales sigue el mismo 
 # El modelo raster
 Como ya fue mencionado en el módulo anterior, el modelo raster corresponde a una representación matricial de elementos o fenómenos que poseen algún tipo de expresión espacial, esto tiene una serie de ventajas, como por ejemplo, que el análisis matemático y lógico de este modelo es mucho más simple que en el modelo vectorial, de hecho, esa ventaja es la que nos impulsa a desarrollar el **análisis multicriterio** utilizando este modelo de representación espacial. es así que procederemos a estudiar la importación de imágenes raster a partir de distintos formatos, además de las distintas operaciones aritméticas y lógicas básicas que podemos aplicar a las imágenes representadas mediante el modelo espacial raster.
 
+<br>
 
+<div class="footer">Copyright &copy; Guillermo S. Fuentes Jaque 2021</div>

@@ -614,9 +614,80 @@ bradypus2 &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span cl
 <div id="el-modelo-raster" class="section level1">
 <h1>El modelo raster</h1>
 <p>Como ya fue mencionado en el módulo anterior, el modelo raster corresponde a una representación matricial de elementos o fenómenos que poseen algún tipo de expresión espacial, esto tiene una serie de ventajas, como por ejemplo, que el análisis matemático y lógico de este modelo es mucho más simple que en el modelo vectorial, de hecho, esa ventaja es la que nos impulsa a desarrollar el <strong>análisis multicriterio</strong> utilizando este modelo de representación espacial. es así que procederemos a estudiar la importación de imágenes raster a partir de distintos formatos, además de las distintas operaciones aritméticas y lógicas básicas que podemos aplicar a las imágenes representadas mediante el modelo espacial raster.</p>
+<div id="importación-de-archivos-raster" class="section level2">
+<h2>Importación de archivos raster</h2>
+<p>Cabe destacar que existen 2 principales tipos de archivos raster, por un lado están los de tipo monobanda (también conocida como single band), es decir, que cada archivo contienen una única imágen raster, mientras que por otro lado existen los de tipo multibanda (multi band), lo que quiere decir que dentro de ese archivo coexisten varias imágenes agrupadas de distinta maneras, inclusive, con distinta resolución.</p>
+<p>a su vez, los archivos raster podrían tener distintas extensiones dependiendo del proveedor de servicios, el proceso realizado, e inclusive el software utilizado para su procesamiento. A continuación se presenta un listado con los principales archivos en que es posible almacenar información raster.</p>
+<table>
+<thead>
+<tr class="header">
+<th align="center">Tipo</th>
+<th align="center">Descripción</th>
+<th align="center">Extensión</th>
+<th align="center">Soporte multibanda</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="center"><em>raster</em></td>
+<td align="center">Formato raster nativo</td>
+<td align="center">.grd</td>
+<td align="center">Si</td>
+</tr>
+<tr class="even">
+<td align="center"><em>ascii</em></td>
+<td align="center">ESRI Ascii</td>
+<td align="center">.asc</td>
+<td align="center">No</td>
+</tr>
+<tr class="odd">
+<td align="center"><em>SAGA</em></td>
+<td align="center">SAGA GIS</td>
+<td align="center">.sdat</td>
+<td align="center">No</td>
+</tr>
+<tr class="even">
+<td align="center"><em>IDRISI</em></td>
+<td align="center">IDRISI</td>
+<td align="center">.rst</td>
+<td align="center">No</td>
+</tr>
+<tr class="odd">
+<td align="center"><em>CDF</em></td>
+<td align="center">netCDF (require <code>ncdf4</code>)</td>
+<td align="center">.nc</td>
+<td align="center">Si</td>
+</tr>
+<tr class="even">
+<td align="center"><em>GTiff</em></td>
+<td align="center">GeoTiff (require <code>rgdal</code>)</td>
+<td align="center">.tif</td>
+<td align="center">Si</td>
+</tr>
+<tr class="odd">
+<td align="center"><em>ENVI</em></td>
+<td align="center">Extensión hdr de ENVI</td>
+<td align="center">.envi</td>
+<td align="center">Si</td>
+</tr>
+<tr class="even">
+<td align="center"><em>EHdr</em></td>
+<td align="center">Extensión hdr de ESRI</td>
+<td align="center">.bil</td>
+<td align="center">Si</td>
+</tr>
+<tr class="odd">
+<td align="center"><em>HFA</em></td>
+<td align="center">Imágenes de Erdas</td>
+<td align="center">.img</td>
+<td align="center">Si</td>
+</tr>
+</tbody>
+</table>
 <p><br></p>
 <div class="footer">
 Copyright © Guillermo S. Fuentes Jaque 2021
+</div>
 </div>
 </div>
 

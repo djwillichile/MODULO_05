@@ -309,6 +309,8 @@ div.tocify {
 <style>
   body {text-align: justify;font-family: sans-serif;}
   #header {text-align: center;}
+  .footer {text-align: center; padding-top: 7%; padding-bottom: 5%;
+  background-color: rgba(80, 110, 120,.5);}
 </style>
 <p><br></p>
 <div id="el-modelo-vectorial" class="section level1">
@@ -371,10 +373,10 @@ bradypus &lt;-<span class="st"> </span><span class="kw">read.delim</span>(<span 
 </div>
 <div id="otros-formatos-para-importar" class="section level2">
 <h2>Otros formatos para importar</h2>
-<p>Así como importamos la base de datos a partir de un <em>csv</em> que contenía la información, también es posible utilizar distintas extensiones de archivos, como por ejemplo los textos delimitados por tabulación (<em>txt</em>), la extensión de Microsoft Excel (<em>xls</em> o <em>xlsx</em>) o extensiones más conocidas en el mundo del análisis espacial como lo son el Keyhole Markup Language (<em>kml</em>) de Google Earth o el Shape File (<em>shp</em>) de ESRI, los cuales veremos más a delante.</p>
-<p>Para las primeras 3 extensiones, la manera en que se pueden cargar los archivos son relativamente parecidas, la gran diferencia es que el texto delimitado por tabulación no necesita de paquetes externos al de <em>r base</em> para su importación. A continuación veremos de manera muy resumida como importar la misma base de datos proveniente de distintos ficheros con estas 3 extensiones.</p>
-<div id="textos-delimitados-por-tabilación-txt" class="section level3">
-<h3>Textos delimitados por tabilación (<em>txt</em>)</h3>
+<p>Así como importamos la base de datos a partir de un <em>csv</em> que contenía la información, también es posible utilizar distintas extensiones de archivos, como por ejemplo los archivos de texto delimitado (<em>txt</em>), la extensión de Microsoft Excel (<em>xls</em> o <em>xlsx</em>) o extensiones más conocidas en el mundo del análisis espacial como lo son el Keyhole Markup Language (<em>kml</em>) de Google Earth o el Shape File (<em>shp</em>) de ESRI, los cuales veremos más a delante.</p>
+<p>Para las primeras 3 extensiones, la manera en que se pueden cargar los archivos son relativamente parecidas, la gran diferencia es que el archivo de texto delimitado no necesita de paquetes externos al de <em>r base</em> para su importación. A continuación veremos de manera muy resumida como importar la misma base de datos proveniente de distintos ficheros con estas 3 extensiones.</p>
+<div id="archivos-de-texto-delimitado-txt" class="section level3">
+<h3>Archivos de texto delimitado (<em>txt</em>)</h3>
 <div class="sourceCode"><pre class="sourceCode r"><code class="sourceCode r"><span class="co"># Asignamos al objeto &quot;fileStrig&quot; ruta completa del archivo</span>
 fileStrig &lt;-<span class="st"> &quot;https://djwillichile.github.io/MODULO_06/DATA/bradypus.txt&quot;</span>
 
@@ -612,6 +614,10 @@ bradypus2 &lt;-<span class="st"> </span><span class="kw">readOGR</span>(<span cl
 <div id="el-modelo-raster" class="section level1">
 <h1>El modelo raster</h1>
 <p>Como ya fue mencionado en el módulo anterior, el modelo raster corresponde a una representación matricial de elementos o fenómenos que poseen algún tipo de expresión espacial, esto tiene una serie de ventajas, como por ejemplo, que el análisis matemático y lógico de este modelo es mucho más simple que en el modelo vectorial, de hecho, esa ventaja es la que nos impulsa a desarrollar el <strong>análisis multicriterio</strong> utilizando este modelo de representación espacial. es así que procederemos a estudiar la importación de imágenes raster a partir de distintos formatos, además de las distintas operaciones aritméticas y lógicas básicas que podemos aplicar a las imágenes representadas mediante el modelo espacial raster.</p>
+<p><br></p>
+<div class="footer">
+Copyright © Guillermo S. Fuentes Jaque 2021
+</div>
 </div>
 
 

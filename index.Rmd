@@ -6,6 +6,7 @@ output:
   html_document:
     highlight: haddock
     toc: true
+    toc_depth: 4
     toc_float:
       collapsed: false
       smooth_scroll: true
@@ -19,6 +20,8 @@ output:
   #header {text-align: center;}
 </style>
 
+
+
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 knitr::opts_knit$set(global.device = TRUE)
@@ -28,16 +31,16 @@ Sys.setenv(LANG = "es")
 <br>
 
 
-# Información espacial del modelo vectorial
+# El modelo vectorial
 
 Es posible distinguir 3 tipos de geometrías en el modelo vectorial para el análisis espacial, estos corresponden a **puntos**, **líneas** y **polígonos**, los cuales hacen referencia a elementos con características particulares y su respectiva representación en el espacio, los polígonos representan elementos unidimensionales como por ejemplo superficies, las líneas representan elementos unidimensionales como por ejemplo calles o ríos, mientras que los puntos representarán la posición de algún objeto en el espacio, por ejemplo, un individuo, el centro de una ciudad e incluso la presencia de algún evento.
 
 ![Figura 1: Diferentes entidades y su representación espacial. ](IMG/Primitivas_vectoriales.png){width='100%'}
 
 ## Importación de datos puntuales
-Existe un gran número de formatos en que se puede importar datos, un ejemplo de estos es el ya conocido **csv** (*Comma Separated Values*), o el versátil **xlsx** de Excel, a continuación se importarán datos desde los formatos csv, xlsx, shp y kml. Para estos ejemplos utilizaremos los materiales encontrados en el repositorio <https://github.com/djwillichile/MODULO_05/tree/gh-pages/DATA>, también pueden acceder a todo el material utilizado para esta actividad mediante el siguiente **[enlace](https://djwillichile.github.io/MODULO_05/DATA/Materiales.zip)**.
+Existe un gran número de formatos en que se puede importar datos, un ejemplo de estos es el ya conocido **csv** (*Comma Separated Values*), o el versátil **xlsx** de Excel, a continuación se importarán datos desde los formatos csv, xlsx, shp y kml. Para estos ejemplos utilizaremos los materiales encontrados en el repositorio <https://github.com/djwillichile/MODULO_06/tree/gh-pages/DATA>, también pueden acceder a todo el material utilizado para esta actividad mediante el siguiente **[enlace](https://djwillichile.github.io/MODULO_06/DATA/Materiales.zip)**.
 
-## importar datos desde csv
+## Importar datos desde csv
 Este método es uno de los más sencillos de implementar y a la vez, el que permite más formas distintas de realizarlo. utilizaremos el archivo *bradypus.csv*
 
 ```{r, include = T,eval=T}
@@ -79,7 +82,7 @@ Así como importamos la base de datos a partir de un *csv* que contenía la info
 Para las primeras 3 extensiones, la manera en que se pueden cargar los archivos son relativamente parecidas, la gran diferencia es que el texto delimitado por tabulación no necesita de paquetes externos al de *r base* para su importación.
 A continuación veremos de manera muy resumida como importar la misma base de datos proveniente de distintos ficheros con estas 3 extensiones.
 
-### textos delimitados por tabilación (*txt*)
+### Textos delimitados por tabilación (*txt*)
 ```{r}
 # Asignamos al objeto "fileStrig" ruta completa del archivo
 fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/bradypus.txt"
@@ -93,7 +96,7 @@ bradypus <- read.delim(file = fileStrig,sep = "\t",dec = ".",header = T)
 head(bradypus)
 ```
 
-### libro de Microsoft Excel 1997-2003 (*xls*)
+### Libro de MS. Excel 1997-2003 (*xls*)
 ```{r}
 # cargamos paquete para soportar el formato
 library(readxl)
@@ -110,7 +113,7 @@ bradypus <- read_excel(temp,1)
 head(bradypus)
 ```
 
-### libro de Microsoft Excel (*xlsx*)
+### Libro de MS. Excel actual(*xlsx*)
 ```{r}
 # cargamos paquete para soportar el formato
 library(openxlsx)
@@ -193,25 +196,30 @@ dev.off(dev.list())
 fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/bradypus.kml"
 
 # importamos la capa mediante la función "readOGR"
-bradypus <- readOGR(fileStrig,layer = "bradypus")
-bradypus
+bradypus1 <- readOGR(fileStrig,layer = "bradypus")
+bradypus1
 
 # graficamos
 par(mar = c(2, 2, 0.1, 0.1))
-plot(bradypus.sp2,axes=T,col="blue")
+plot(bradypus1,axes=T,col="blue")
 plot(wrld_simpl,add=T)
 
 # Asignamos al objeto "fileStrig" ruta completa del archivo shp
 fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/bradypus.shp"
 
 # importamos la capa mediante la función "readOGR"
-bradypus <- readOGR("DATA/bradypus.shp",encoding = "ESRI Shapefile")
-bradypus
+bradypus2 <- readOGR("DATA/bradypus.shp",encoding = "ESRI Shapefile")
+bradypus2
 
 # graficamos
 par(mar = c(2, 2, 0.1, 0.1))
-plot(bradypus.sp2,axes=T,col="red")
+plot(bradypus2,axes=T,col="red")
 plot(wrld_simpl,add=T)
 ```
 <br>
 Como ya habrán visto, la importación de estos datos espaciales sigue el mismo patrón, la función `readOGR()` requiere el nombre del archivo y algunas veces la codificación de este para que no se desconfigure la base de datos no espacial asociada al archivo, de todos modos podrán revisar el detalle de esta función incorporando un sigo de interrogación antes de la función (`?readOGR()`) u ocupando la función help (`help("readOGR")`)
+
+# El modelo raster
+Como ya fue mencionado en el módulo anterior, el modelo raster corresponde a una representación matricial de elementos o fenómenos que poseen algún tipo de expresión espacial, esto tiene una serie de ventajas, como por ejemplo, que el análisis matemático y lógico de este modelo es mucho más simple que en el modelo vectorial, de hecho, esa ventaja es la que nos impulsa a desarrollar el **análisis multicriterio** utilizando este modelo de representación espacial. es así que procederemos a estudiar la importación de imágenes raster a partir de distintos formatos, además de las distintas operaciones aritméticas y lógicas básicas que podemos aplicar a las imágenes representadas mediante el modelo espacial raster.
+
+

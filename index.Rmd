@@ -225,7 +225,7 @@ Como ya habrán visto, la importación de estos datos espaciales sigue el mismo 
 Como ya fue mencionado en el módulo anterior, el modelo raster corresponde a una representación matricial de elementos o fenómenos que poseen algún tipo de expresión espacial, esto tiene una serie de ventajas, como por ejemplo, que el análisis matemático y lógico de este modelo es mucho más simple que en el modelo vectorial, de hecho, esa ventaja es la que nos impulsa a desarrollar el **análisis multicriterio** utilizando este modelo de representación espacial. es así que procederemos a estudiar la importación de imágenes raster a partir de distintos formatos, además de las distintas operaciones aritméticas y lógicas básicas que podemos aplicar a las imágenes representadas mediante el modelo espacial raster.
 
 ## Importación de archivos raster
-Cabe destacar que existen 2 principales tipos de archivos raster, por un lado están los de tipo monobanda (también conocida como single band), es decir, que cada archivo contienen una única imágen raster, mientras que por otro lado existen los de tipo multibanda (multi band), lo que quiere decir que dentro de ese archivo coexisten varias imágenes agrupadas de distinta maneras, inclusive, con distinta resolución.
+Cabe destacar que existen 2 principales tipos de archivos raster, por un lado están los de tipo monobanda (también conocida como single band), es decir, que cada archivo contienen una única imagen raster, mientras que por otro lado existen los de tipo multibanda (multi band), lo que quiere decir que dentro de ese archivo coexisten varias imágenes agrupadas de distinta maneras, inclusive, con distinta resolución.
 
 a su vez, los archivos raster podrían tener distintas extensiones dependiendo del proveedor de servicios, el proceso realizado, e inclusive el software utilizado para su procesamiento. A continuación se presenta un listado con los principales archivos en que es posible almacenar información raster.
 
@@ -241,13 +241,15 @@ a su vez, los archivos raster podrían tener distintas extensiones dependiendo d
 | *EHdr*| Extensión hdr de ESRI| .bil| Si|
 | *HFA*| Imágenes de Erdas| .img| Si|
 
-Es preciso declarar que para efectos prácticos no trabajaremos con los formatos *netCDF*, *hdr* ni *Erdas*, ya que estos formatos son poco utilizados al momento de realizar análisis multicriterio y aceptan distintas formas de alacenar las imágenes, las cuales no daría tiempo de estudiar en este módulo.
+Es preciso declarar que para efectos prácticos no trabajaremos con los formatos *netCDF*, *hdr* ni *Erdas*, ya que estos formatos son poco utilizados al momento de realizar análisis multicriterio y aceptan distintas formas de almacenar las imágenes, las cuales no daría tiempo de estudiar en este módulo.
 
-## Importar de archivos monobanda
+### Importar de archivos monobanda
 
 ```{r , include=FALSE}
 dev.off(dev.list())
 ```
+
+Los archivos de tipo monobanda, como ya se mencionó anteriormente, corresponden a archivos que solo contienen un raster en su arquitectura, por lo tanto es posible importarlos mediante la función `raster()` del paquete homónimo, siendo éste, capaz de reconocer qué extensión tienen los archivos y configurar la imagen de acuerdo a ésto. A continuación se observa el procedimiento standar para importar archivos monobanda.
 
 ```{r, fig.align='center'}
 # Asignamos al objeto "fileStrig" ruta completa del archivo "ascii"
@@ -262,7 +264,7 @@ par(mar = c(3, 1.8, 0.3, 1)) #configuramos los márgenes
 plot(ALT,legend.width=2,col=hcl.colors(15,"Earth"))
 
 
-# Asignamos al objeto "fileStrig" ruta completa del archivo grd
+# Asignamos al objeto "fileStrig" ruta completa del archivo "grd"
 fileStrig <- "DATA/TEMP.rst"
 
 # Importamos el archivo con la función "stack"
@@ -272,15 +274,16 @@ TEMP
 # Graficamos el raster de temperatura
 par(mar = c(3, 1.8, 0.3, 1)) #configuramos los márgenes
 plot(TEMP,legend.width=2,col=hcl.colors(15,"Blue-Red"))
-
+plot(wrld_simpl,add=T)
 ```
 
-## Importar de archivos monobanda
-
+### Importar de archivos multibanda
 
 ```{r , include=FALSE}
 dev.off(dev.list())
 ```
+
+Por otra parte, los archivos de tipo multibanda, corresponden a archivos que, en su arquitectura, pueden contener más de na imagen raster, por lo tanto, poseen un sistema interno algo más complejo generando una arquitectura conocida como pila o stack, es así que, para importar archivos multibanda se utilizan las funciones `brick()` y `stack()` provenientes ambas del paquete `raster`, siendo éste, capaz también de reconocer qué extensión tienen los archivos y configurar las imágenes de acuerdo a ésto. A continuación se observa el procedimiento standar para importar archivos multibanda.
 
 ```{r, fig.align='center'}
 # Asignamos al objeto "fileStrig" ruta completa del archivo tif
@@ -290,9 +293,10 @@ fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/LANDSAT_5.tif"
 LANDSAT <- stack(fileStrig)
 LANDSAT
 
-# Graficamos la primera banda
-plot(LANDSAT[[1]],legend.width=2)
-
+# Graficamos la segunda banda
+par(mar = c(3, 1.8, 0.3, 1)) #configuramos los márgenes
+plot(LANDSAT[[2]],legend.width=2,col=rainbow(255))
+plot(wrld_simpl,add=T)
 # Graficamos 3 bandas en RGB
 plotRGB(LANDSAT, stretch = "lin",
         r = 3, g = 2, b = 1)
@@ -304,6 +308,8 @@ fileStrig <- "DATA/bio.grd"
 # Importamos el archivo con la función "stack"
 bio <- stack(fileStrig)
 bio
+
+plot(bio[[1:9]],nr=3,legend.width=1.5)
 
 ```
 
@@ -324,4 +330,4 @@ pAlt=brewer.pal(n = 11, name = "BrBG")
 
 <br>
 
-<div class="footer">Copyright &copy; Guillermo S. Fuentes Jaque 2021</div>
+<div clases="footer">Copyright &copy; Guillermo S. Fuentes Jaque 2021</div>

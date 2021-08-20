@@ -224,6 +224,27 @@ Como ya habrán visto, la importación de estos datos espaciales sigue el mismo 
 # El modelo raster
 Como ya fue mencionado en el módulo anterior, el modelo raster corresponde a una representación matricial de elementos o fenómenos que poseen algún tipo de expresión espacial, esto tiene una serie de ventajas, como por ejemplo, que el análisis matemático y lógico de este modelo es mucho más simple que en el modelo vectorial, de hecho, esa ventaja es la que nos impulsa a desarrollar el **análisis multicriterio** utilizando este modelo de representación espacial. es así que procederemos a estudiar la importación de imágenes raster a partir de distintos formatos, además de las distintas operaciones aritméticas y lógicas básicas que podemos aplicar a las imágenes representadas mediante el modelo espacial raster.
 
+## Importación de archivos raster
+Cabe destacar que existen 2 principales tipos de archivos raster, por un lado están los de tipo monobanda (también conocida como single band), es decir, que cada archivo contienen una única imágen raster, mientras que por otro lado existen los de tipo multibanda (multi band), lo que quiere decir que dentro de ese archivo coexisten varias imágenes agrupadas de distinta maneras, inclusive, con distinta resolución.
+
+a su vez, los archivos raster podrían tener distintas extensiones dependiendo del proveedor de servicios, el proceso realizado, e inclusive el software utilizado para su procesamiento. A continuación se presenta un listado con los principales archivos en que es posible almacenar información raster.
+
+|Tipo|Descripción|Extensión|Soporta multibanda|
+|:------------:|:-----------:|:------------:|:------------:|
+| *raster*| Formato raster nativo| .grd| Si|
+| *ascii*| ESRI Ascii| .asc| No|
+| *SAGA*| SAGA GIS| .sdat| No|
+| *IDRISI*| IDRISI| .rst | No|
+| *CDF*| netCDF (require `ncdf4`)| .nc| Si|
+| *GTiff*| GeoTiff (require `rgdal`)| .tif| Si|
+| *ENVI*| Extensión hdr de ENVI| .envi| Si|
+| *EHdr*| Extensión hdr de ESRI| .bil| Si|
+| *HFA*| Imágenes de Erdas| .img| Si|
+
+Es preciso declarar que para efectos prácticos no trabajaremos con los formatos *netCDF*, *hdr* ni *Erdas*, ya que estos formatos son poco utilizados al momento de realizar análisis multicriterio y aceptan distintas formas de alacenar las imágenes, las cuales no daría tiempo de estudiar en este módulo.
+
+## Importar de archivos monobanda
+
 <br>
 
 <div class="footer">Copyright &copy; Guillermo S. Fuentes Jaque 2021</div>

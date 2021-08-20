@@ -245,6 +245,40 @@ Es preciso declarar que para efectos prácticos no trabajaremos con los formatos
 
 ## Importar de archivos monobanda
 
+
+## Importar de archivos monobanda
+
+
+```{r , include=FALSE}
+dev.off(dev.list())
+```
+
+```{r, fig.align='center'}
+# Asignamos al objeto "fileStrig" ruta completa del archivo tif
+fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/LANDSAT_5.tif"
+
+# Importamos el archivo con la función "stack"
+LANDSAT <- stack(fileStrig)
+LANDSAT
+
+# Graficamos la primera banda
+plot(LANDSAT[[1]],legend.width=2)
+
+# Graficamos 3 bandas en RGB
+plotRGB(LANDSAT, stretch = "lin",
+        r = 3, g = 2, b = 1)
+box()
+
+# Asignamos al objeto "fileStrig" ruta completa del archivo grd
+fileStrig <- "DATA/bio.grd"
+
+# Importamos el archivo con la función "stack"
+bio <- stack(fileStrig)
+bio
+
+```
+
+
 <br>
 
 <div class="footer">Copyright &copy; Guillermo S. Fuentes Jaque 2021</div>

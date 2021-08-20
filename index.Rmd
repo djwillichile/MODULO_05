@@ -317,6 +317,14 @@ plot(bio[[1:9]],nr=3,legend.width=1.5)
 dev.off(dev.list())
 ```
 
+## álgebra de mapas
+El álgebra de mapas incluye un amplio conjunto de operadores que se ejecutan sobre una o varias capas raster de entrada para producir una o varias capas raster de salida. Por operador se entiende un algoritmo que realiza una misma operación en todas las celdillas de una capa raster. Estos operadores se definen mediante ecuaciones, por ejemplo el operador B = A∗100 genera una nueva capa (B) asignando a cada celdilla el valor de la celdilla correspondiente en la capa (A) multiplicado por 100.
+Cada capa raster es una matriz de números y la operación se realiza para todos los números de la matriz, por tanto para todas las celdillas de la capa raster. Sin embargo aunque ambas operan sobre matrices, el álgebra de mapas tiene poco más que ver con el concepto matemático de álgebra matricial.
+
+Los operadores aritméticos y lógicos utilizados para el álgebra de mapas coincide justamente con los operadores aritméticos y lógicos presentados en el módulo 2 de este curso por lo que no nos detendremos a detallarnos pero si haremos incapié en su ejecución, para poder obtener productos en función de los materiales en formato raster.
+
+Una aplicación muy extendida del álgebra de mapas en el mundo de los Sistemas de Información Geográfica y la Teledetección el el cálculo de índices espectrales. En concreo ahora realizaremos 2 índices, el Índice de Nieve de Diferencia Normalizada (NDSI) y el Índice de Vegetación de Diferencia Normalizada (NDVI)
+
 
 ```{r, fig.align='center'}
 library(RColorBrewer)

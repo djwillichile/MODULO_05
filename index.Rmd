@@ -245,6 +245,35 @@ Es preciso declarar que para efectos prácticos no trabajaremos con los formatos
 
 ## Importar de archivos monobanda
 
+```{r , include=FALSE}
+dev.off(dev.list())
+```
+
+```{r, fig.align='center'}
+# Asignamos al objeto "fileStrig" ruta completa del archivo "ascii"
+fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/alt.asc"
+
+# Importamos el archivo con la función "raster"
+ALT <- stack(fileStrig)
+ALT
+
+# Graficamos el raster de altura
+par(mar = c(3, 1.8, 0.3, 1)) #configuramos los márgenes
+plot(ALT,legend.width=2,col=hcl.colors(15,"Earth"))
+
+
+# Asignamos al objeto "fileStrig" ruta completa del archivo grd
+fileStrig <- "DATA/TEMP.rst"
+
+# Importamos el archivo con la función "stack"
+TEMP <- stack(fileStrig)
+TEMP
+
+# Graficamos el raster de temperatura
+par(mar = c(3, 1.8, 0.3, 1)) #configuramos los márgenes
+plot(TEMP,legend.width=2,col=hcl.colors(15,"Blue-Red"))
+
+```
 
 ## Importar de archivos monobanda
 
@@ -275,6 +304,20 @@ fileStrig <- "DATA/bio.grd"
 # Importamos el archivo con la función "stack"
 bio <- stack(fileStrig)
 bio
+
+```
+
+```{r , include=FALSE}
+dev.off(dev.list())
+```
+
+
+```{r, fig.align='center'}
+library(RColorBrewer)
+display.brewer.all()
+
+pTemp=brewer.pal(n = 11, name = "Spectral")
+pAlt=brewer.pal(n = 11, name = "BrBG")
 
 ```
 

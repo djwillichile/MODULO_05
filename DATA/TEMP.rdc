@@ -2,8 +2,8 @@ file format : IDRISI Raster A.1
 file title  : layer
 data type   : real
 file type   : binary
-columns     : 174
-rows        : 129
+columns     : 464
+rows        : 344
 ref. system : latlong
 ref. units  : degrees
 unit dist.  : 1.0000000
@@ -12,11 +12,11 @@ max. X      : -34
 min. Y      : -26
 max. Y      : 17
 pos'n error : unknown
-resolution  : 0.3333333
-min. value  : 14.27474
-max. value  : 288.5847
-display min : 14.27474
-display max : 288.5847
+resolution  : 0.125
+min. value  : -8.425926
+max. value  : 290.9167
+display min : -8.425926
+display max : 290.9167
 value units : unspecified
 value error : unknown
 flag value  : -9999

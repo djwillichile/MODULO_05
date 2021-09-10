@@ -323,7 +323,9 @@ Cada capa raster es una matriz de números y la operación se realiza para todos
 
 Los operadores aritméticos y lógicos utilizados para el álgebra de mapas coincide justamente con los operadores aritméticos y lógicos presentados en el módulo 2 de este curso por lo que no nos detendremos a detallarnos pero si haremos incapié en su ejecución, para poder obtener productos en función de los materiales en formato raster.
 
-Una aplicación muy extendida del álgebra de mapas en el mundo de los Sistemas de Información Geográfica y la Teledetección el el cálculo de índices espectrales. En concreo ahora realizaremos 2 índices, el Índice de Nieve de Diferencia Normalizada (NDSI) y el Índice de Vegetación de Diferencia Normalizada (NDVI)
+Una aplicación muy extendida del álgebra de mapas en el mundo de los Sistemas de Información Geográfica y la Teledetección el el cálculo de índices espectrales. En concreo ahora realizaremos 2 índices, el Índice de Agua de Diferencia Normalizada (NDWI) y el Índice de Vegetación de Diferencia Normalizada (NDVI)
+
+![Figura 2: Comportamiento espectral de distintas superficies. ](IMG/Firma espectral.jpg){width='100%'}
 
 
 ```{r, fig.align='center'}

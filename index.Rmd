@@ -256,7 +256,7 @@ Los archivos de tipo monobanda, como ya se mencionó anteriormente, corresponden
 fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/alt.asc"
 
 # Importamos el archivo con la función "raster"
-ALT <- stack(fileStrig)
+ALT <- raster(fileStrig)
 ALT
 
 # Graficamos el raster de altura
@@ -268,7 +268,7 @@ plot(ALT,legend.width=2,col=hcl.colors(15,"Earth"))
 fileStrig <- "DATA/TEMP.rst"
 
 # Importamos el archivo con la función "stack"
-TEMP <- stack(fileStrig)
+TEMP <- raster(fileStrig)
 TEMP
 
 # Graficamos el raster de temperatura
@@ -283,11 +283,11 @@ plot(wrld_simpl,add=T)
 dev.off(dev.list())
 ```
 
-Por otra parte, los archivos de tipo multibanda, corresponden a archivos que, en su arquitectura, pueden contener más de na imagen raster, por lo tanto, poseen un sistema interno algo más complejo generando una arquitectura conocida como pila o stack, es así que, para importar archivos multibanda se utilizan las funciones `brick()` y `stack()` provenientes ambas del paquete `raster`, siendo éste, capaz también de reconocer qué extensión tienen los archivos y configurar las imágenes de acuerdo a ésto. A continuación se observa el procedimiento standar para importar archivos multibanda.
+Por otra parte, los archivos de tipo multibanda, corresponden a archivos que, en su arquitectura, pueden contener más de una imagen raster, por lo tanto, poseen un sistema interno algo más complejo generando una arquitectura conocida como pila o stack, es así que, para importar archivos multibanda se utilizan las funciones `brick()` y `stack()` provenientes ambas del paquete `raster`, siendo éste, capaz también de reconocer qué extensión tienen los archivos y configurar las imágenes de acuerdo a ésto. A continuación se observa el procedimiento standar para importar archivos multibanda.
 
 ```{r, fig.align='center'}
 # Asignamos al objeto "fileStrig" ruta completa del archivo tif
-fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/LANDSAT_5.tif"
+fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/LANDSAT_8.tif"
 
 # Importamos el archivo con la función "stack"
 LANDSAT <- stack(fileStrig)
@@ -299,7 +299,7 @@ plot(LANDSAT[[2]],legend.width=2,col=rainbow(255))
 plot(wrld_simpl,add=T)
 # Graficamos 3 bandas en RGB
 plotRGB(LANDSAT, stretch = "lin",
-        r = 3, g = 2, b = 1)
+        r = 4, g = 3, b = 2)
 box()
 
 # Asignamos al objeto "fileStrig" ruta completa del archivo grd

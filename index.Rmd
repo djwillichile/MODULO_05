@@ -293,13 +293,13 @@ fileStrig <- "https://djwillichile.github.io/MODULO_06/DATA/LANDSAT_8.tif"
 LANDSAT <- stack(fileStrig)
 LANDSAT
 
-# Graficamos la segunda banda
+# Graficamos la segunda banda (verde)
 par(mar = c(3, 1.8, 0.3, 1)) #configuramos los márgenes
 plot(LANDSAT[[2]],legend.width=2,col=rainbow(255))
 plot(wrld_simpl,add=T)
 # Graficamos 3 bandas en RGB
 plotRGB(LANDSAT, stretch = "lin",
-        r = 4, g = 3, b = 2)
+        r = 3, g = 2, b = 1)
 box()
 
 # Asignamos al objeto "fileStrig" ruta completa del archivo grd
